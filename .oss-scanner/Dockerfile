@@ -1,4 +1,6 @@
-FROM --platform=$BUILDPLATFORM golang:1.27.4-alpine AS wafmeow
+# Go 1.27.x linker panics (slice bounds out of range in ld.decodetypeStr)
+# while linking wafmeow's large type data; 1.26.11 links cleanly.
+FROM --platform=$BUILDPLATFORM golang:1.26.11-alpine AS wafmeow
 WORKDIR /build
 COPY tools/wafmeow/ ./
 ARG TARGETARCH
